@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品判斷情境調研｜Lion Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=IBM+Plex+Sans+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1815;
+    --ink-soft: #4a453e;
+    --paper: #f5f1ea;
+    --paper-dim: #ebe5d9;
+    --accent: #b8341c;
+    --accent-soft: #d96d4a;
+    --line: #2a2620;
+    --good: #2d6a4f;
+    --warn: #c87a0a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans TC', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(26,24,21,0.05) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+  }
+
+  /* ---- Header ---- */
+  .header {
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  h1 .accent { color: var(--accent); }
+  .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+  .meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* ---- Progress ---- */
+  .progress-wrap {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    padding: 12px 0;
+    margin-bottom: 32px;
+    z-index: 10;
+    border-bottom: 1px solid var(--paper-dim);
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--paper-dim);
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ---- Question Block ---- */
+  .question {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .q-number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .q-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .q-title .required {
+    color: var(--accent);
+    margin-left: 4px;
+  }
+  .q-hint {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 2px solid var(--paper-dim);
+  }
+  .q-limit {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2px 8px;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    margin-right: 8px;
+  }
+  .q-counter {
+    display: inline-block;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .q-counter.warn { color: var(--accent); font-weight: 600; }
+
+  /* ---- Choice Cards ---- */
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .choices.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 540px) {
+    .choices.two-col { grid-template-columns: 1fr; }
+  }
+  .choice {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: white;
+    border: 1px solid var(--paper-dim);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .choice:hover {
+    border-color: var(--ink-soft);
+    transform: translateX(2px);
+  }
+  .choice.selected {
+    border-color: var(--accent);
+    background: #fffaf6;
+    box-shadow: 3px 3px 0 var(--accent);
+  }
+  .choice.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  /* checkbox / radio 已不再參與互動,只當視覺指示 */
+  .choice input {
+    margin-top: 4px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+  /* 所有子元素都讓 .choice 容器接收點擊 */
+  .choice > * {
+    pointer-events: none;
+  }
+  .choice-text {
+    flex: 1;
+    font-size: 15px;
+  }
+  .choice-desc {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ---- Scale (Q3) ---- */
+  .scale {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .scale-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--paper-dim);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .scale-item:hover { border-color: var(--ink-soft); }
+  .scale-item.selected {
+    border-color: var(--accent);
+    background: #fffaf6;
+    box-shadow: 3px 3px 0 var(--accent);
+  }
+  .scale-item > * { pointer-events: none; }
+  .scale-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent);
+    width: 36px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .scale-item.selected .scale-num { color: var(--accent); }
+  .scale-label { font-size: 14px; }
+
+  /* ---- Text Input ---- */
+  .text-input, .textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--paper-dim);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.15s;
+  }
+  .text-input:focus, .textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .textarea { resize: vertical; min-height: 100px; }
+  .other-input {
+    margin-top: 6px;
+    margin-left: 28px;
+    width: calc(100% - 28px);
+    font-size: 14px;
+    padding: 6px 10px;
+    border: 1px solid var(--paper-dim);
+    background: white;
+    font-family: inherit;
+  }
+  .other-input:focus { outline: none; border-color: var(--accent); }
+
+  /* ---- Q7: 5 free text rows with quick-pick chips ---- */
+  .freetext-rows { display: flex; flex-direction: column; gap: 10px; }
+  .freetext-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .freetext-num {
+    width: 24px;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .freetext-row input { flex: 1; }
+  .chip-zone {
+    margin-top: 14px;
+    padding: 14px;
+    background: var(--paper-dim);
+    border-left: 3px solid var(--accent);
+  }
+  .chip-zone-title {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-size: 13px;
+    padding: 4px 10px;
+    background: white;
+    border: 1px solid var(--ink);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .chip:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .chip-used {
+    opacity: 0.35;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .chip-used:hover {
+    background: white;
+    color: var(--ink);
+  }
+  .text-input.dup-warn {
+    border-color: var(--accent);
+    background: #fff5f0;
+  }
+
+  /* ---- Q9: Ranking ---- */
+  .rank-pool, .rank-selected {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .rank-section-title {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    margin: 16px 0 8px;
+    text-transform: uppercase;
+  }
+  .rank-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: white;
+    border: 1px solid var(--paper-dim);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .rank-card:hover { border-color: var(--ink-soft); }
+  .rank-card.in-rank {
+    background: #fffaf6;
+    border-color: var(--accent);
+  }
+  .rank-badge {
+    width: 28px;
+    height: 28px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .rank-card.in-rank .rank-badge { background: var(--accent); }
+  .rank-content { flex: 1; }
+  .rank-title { font-weight: 600; font-size: 15px; }
+  .rank-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .rank-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .rank-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--paper-dim);
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--ink-soft);
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .rank-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .rank-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  /* ---- Submit ---- */
+  .footer {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 2px solid var(--line);
+  }
+  .submit-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 18px 40px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .submit-btn:hover:not(:disabled) {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 var(--ink);
+  }
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .submit-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+  }
+
+  /* ---- Validation ---- */
+  .error-msg {
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: 500;
+  }
+  .question.invalid .q-title { color: var(--accent); }
+
+  /* ---- Honeypot ---- */
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* ---- States ---- */
+  .state-screen {
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .state-screen h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+  .state-screen p {
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .hidden { display: none !important; }
+
+  .spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--paper-dim);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---- Identity block ---- */
+  /* (removed) */
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ FORM SCREEN ============ -->
+  <div id="form-screen">
+
+    <header class="header">
+      <div class="eyebrow">Lion Travel · Product Intelligence</div>
+      <h1>產品判斷情境<span class="accent">調研</span></h1>
+      <p class="lede">這份調研將協助我們找出「判斷產品時，最該優先整理出來的資訊類型」。請依照你的實際工作經驗作答，預計耗時 8-12 分鐘。</p>
+      <div class="meta">
+        <span class="meta-item">10 題</span>
+        <span class="meta-item">無敏感資訊</span>
+        <span class="meta-item">作答結果僅供內部產品優化使用</span>
+      </div>
+    </header>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text" id="progressText">已完成 0 / 10 題</div>
+    </div>
+
+    <!-- ============ Q1 ============ -->
+    <div class="question" data-q="1">
+      <div class="q-number">問題 01 / 10</div>
+      <h2 class="q-title">你目前最熟悉哪些產品線？<span class="required">*</span></h2>
+      <p class="q-hint">複選，最多 3 項</p>
+      <span class="q-limit">最多 3 項</span>
+      <span class="q-counter" id="q1-counter">已選 0 / 3</span>
+      <div class="choices two-col" id="q1-choices"></div>
+      <input type="text" class="other-input hidden" id="q1-other" placeholder="請填寫其他產品線">
+      <div class="error-msg hidden" id="q1-error">請至少選擇一項</div>
+    </div>
+
+    <!-- ============ Q2 ============ -->
+    <div class="question" data-q="2">
+      <div class="q-number">問題 02 / 10</div>
+      <h2 class="q-title">如果只能選一個，你最熟悉哪一條產品線？<span class="required">*</span></h2>
+      <p class="q-hint">單選</p>
+      <div class="choices two-col" id="q2-choices"></div>
+      <input type="text" class="other-input hidden" id="q2-other" placeholder="請填寫其他產品線">
+      <div class="error-msg hidden" id="q2-error">請選擇一項</div>
+    </div>
+
+    <!-- ============ Q3 ============ -->
+    <div class="question" data-q="3">
+      <div class="q-number">問題 03 / 10</div>
+      <h2 class="q-title">你對這條產品線的熟悉程度？<span class="required">*</span></h2>
+      <div class="scale" id="q3-scale"></div>
+      <div class="error-msg hidden" id="q3-error">請選擇一個分數</div>
+    </div>
+
+    <!-- ============ Q4 ============ -->
+    <div class="question" data-q="4">
+      <div class="q-number">問題 04 / 10</div>
+      <h2 class="q-title">你的主要工作角色是？<span class="required">*</span></h2>
+      <div class="choices" id="q4-choices"></div>
+      <input type="text" class="other-input hidden" id="q4-other" placeholder="請填寫其他角色">
+      <div class="error-msg hidden" id="q4-error">請選擇一項</div>
+    </div>
+
+    <!-- ============ Q5 ============ -->
+    <div class="question" data-q="5">
+      <div class="q-number">問題 05 / 10</div>
+      <h2 class="q-title">在你的工作中，哪些情境最常需要你快速理解或判斷一個產品？<span class="required">*</span></h2>
+      <p class="q-hint">複選，最多 3 項</p>
+      <span class="q-limit">最多 3 項</span>
+      <span class="q-counter" id="q5-counter">已選 0 / 3</span>
+      <div class="choices" id="q5-choices"></div>
+      <input type="text" class="other-input hidden" id="q5-other" placeholder="請填寫其他情境">
+      <div class="error-msg hidden" id="q5-error">請至少選擇一項</div>
+    </div>
+
+    <!-- ============ Q6 ============ -->
+    <div class="question" data-q="6">
+      <div class="q-number">問題 06 / 10</div>
+      <h2 class="q-title">請回想最近一次你需要判斷產品的情境，當時你主要在判斷什麼？<span class="required">*</span></h2>
+      <p class="q-hint">請依照實際工作經驗回答，不需要填寫客戶姓名、訂單資料或敏感資訊。例如：「我要判斷這個日本團適不適合推薦給親子客」「我要比較兩個歐洲團為什麼價格差很多」</p>
+      <textarea class="textarea" id="q6-text" placeholder="我當時主要在判斷：" maxlength="500"></textarea>
+      <div class="error-msg hidden" id="q6-error">請填寫至少 5 個字</div>
+    </div>
+
+    <!-- ============ Q7 ============ -->
+    <div class="question" data-q="7">
+      <div class="q-number">問題 07 / 10</div>
+      <h2 class="q-title">在這個情境下，你通常會先看哪些資訊？<span class="required">*</span></h2>
+      <p class="q-hint">請用你平常會說的方式填寫，最多 5 項。下方的常見資訊可點擊快速代入。</p>
+      <div class="freetext-rows" id="q7-rows"></div>
+      <div class="chip-zone">
+        <div class="chip-zone-title">常見資訊（點擊填入空欄位）</div>
+        <div class="chips" id="q7-chips"></div>
+      </div>
+      <div class="error-msg hidden" id="q7-error">請至少填寫 1 項</div>
+    </div>
+
+    <!-- ============ Q8 ============ -->
+    <div class="question" data-q="8">
+      <div class="q-number">問題 08 / 10</div>
+      <h2 class="q-title">為什麼你會先看這些資訊？<span class="required">*</span></h2>
+      <p class="q-hint">這題是關鍵題，幫助我們判斷某個資訊是因為「銷售」、「履約」、「比較」、「風險」、「客群適配」還是「產品設計」而重要。</p>
+      <textarea class="textarea" id="q8-text" placeholder="原因是：" maxlength="500"></textarea>
+      <div class="error-msg hidden" id="q8-error">請填寫至少 5 個字</div>
+    </div>
+
+    <!-- ============ Q9 ============ -->
+    <div class="question" data-q="9">
+      <div class="q-number">問題 09 / 10</div>
+      <h2 class="q-title">如果系統要幫你優先整理產品資訊，以下哪 5 類最值得優先被整理出來？<span class="required">*</span></h2>
+      <p class="q-hint">點 ＋ 加入排序、用 ▲▼ 調整順序。請依照實際判斷需求排出第 1 到第 5 名。</p>
+
+      <div id="q9-ranked-section">
+        <div class="rank-section-title">你的排序（第 1-5 名）</div>
+        <div class="rank-selected" id="q9-ranked">
+          <div class="rank-card" style="opacity:0.5; border-style:dashed;">
+            <div class="rank-content"><div class="rank-desc" style="margin-top:0;">尚未選擇任何項目</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rank-section-title">可選項目</div>
+      <div class="rank-pool" id="q9-pool"></div>
+      <div class="error-msg hidden" id="q9-error">請選滿 5 項</div>
+    </div>
+
+    <!-- ============ Q10 ============ -->
+    <div class="question" data-q="10">
+      <div class="q-number">問題 10 / 10</div>
+      <h2 class="q-title">哪些產品資訊你最常覺得不清楚、需要再確認，或需要問其他人？<span class="required">*</span></h2>
+      <p class="q-hint">複選，最多 5 項</p>
+      <span class="q-limit">最多 5 項</span>
+      <span class="q-counter" id="q10-counter">已選 0 / 5</span>
+      <div class="choices" id="q10-choices"></div>
+      <input type="text" class="other-input hidden" id="q10-other" placeholder="請填寫其他">
+      <div class="error-msg hidden" id="q10-error">請至少選擇一項</div>
+    </div>
+
+    <!-- Honeypot -->
+    <div class="honeypot">
+      <label>Leave this empty: <input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label>
+    </div>
+
+    <footer class="footer">
+      <button class="submit-btn" id="submitBtn">送出問卷</button>
+      <p class="submit-note">送出後資料將同步至內部試算表，無法再次修改</p>
+    </footer>
+  </div>
+
+  <!-- ============ LOADING ============ -->
+  <div id="loading-screen" class="state-screen hidden">
+    <div class="spinner"></div>
+    <h2 style="margin-top:24px;">送出中...</h2>
+    <p>請稍候，正在同步資料</p>
+  </div>
+
+  <!-- ============ SUCCESS ============ -->
+  <div id="success-screen" class="state-screen hidden">
+    <div style="font-family:'Noto Serif TC',serif; font-size:64px; color:var(--accent); margin-bottom:16px;">✓</div>
+    <h2>謝謝你的填答</h2>
+    <p>你的回應已成功送出，將協助我們把產品資訊整理得更貼近現場需求。</p>
+  </div>
+
+  <!-- ============ ERROR ============ -->
+  <div id="error-screen" class="state-screen hidden">
+    <div style="font-family:'Noto Serif TC',serif; font-size:48px; color:var(--accent); margin-bottom:16px;">!</div>
+    <h2>送出失敗</h2>
+    <p id="error-detail">資料未能送達，請稍後再試或聯絡負責窗口。</p>
+    <button class="submit-btn" id="retryBtn" style="max-width:200px;">重試</button>
+  </div>
+
+  <!-- ============ ALREADY SUBMITTED ============ -->
+  <div id="dup-screen" class="state-screen hidden">
+    <div style="font-family:'Noto Serif TC',serif; font-size:48px; color:var(--warn); margin-bottom:16px;">◐</div>
+    <h2>你已填過這份問卷</h2>
+    <p>感謝你的支持。本問卷每人限填一次。</p>
+    <button class="submit-btn" id="forceFillBtn" style="max-width:300px; background:var(--paper-dim); color:var(--ink);">我要重新填答（覆蓋舊資料）</button>
+  </div>
+
+</div>
+
+<script>
+  /* ============================================================ */
+  /*  CONFIG: 把 GAS 部署網址填在這裡                              */
+  /* ============================================================ */
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycby6ibP9IAXgyQkyZuMXhfIAZ23NfFuSc1as_7_xTvsTRQ5j8xRhClwyFJQXTdGSolNQ/exec';
+  const STORAGE_KEY = 'lion_product_survey_v1';
+
+  /* ============================================================ */
+  /*  OPTION DATA                                                  */
+  /* ============================================================ */
+  const PRODUCT_LINES = [
+    '東北亞', '大陸港澳', '東南亞', '美加', '紐澳', '亞非',
+    '國旅', '郵輪', '國外鐵道', '高爾夫', '運動旅遊', '璽品'
+  ];
+
+  const ROLES = [
+    { v: 'RC/TP', label: 'RC / TP', desc: '產品規劃、行程設計、資源配置、成本或售價規劃' },
+    { v: 'OP', label: 'OP', desc: '出團作業、文件、名單、履約、異動與交付' },
+    { v: '業務', label: '業務', desc: '客戶需求理解、產品說明、銷售推進與成交' },
+    { v: '主管/管理職', label: '主管 / 管理職', desc: '審核、決策、管理或跨單位協調' },
+  ];
+
+  const Q5_OPTIONS = [
+    '向客人或通路說明產品內容',
+    '幫客人挑選或推薦適合的產品',
+    '比較兩個或多個相似產品的差異',
+    '判斷產品是否適合主推或曝光',
+    '判斷產品是否有銷售機會',
+    '判斷產品是否有作業或履約風險',
+    '判斷產品內容是否完整或需要補充',
+    '判斷產品設計是否合理',
+    '處理客人對價格、行程或規格的疑問',
+    '處理產品異動、客訴或例外狀況',
+    '協助新人或其他同仁理解產品',
+  ];
+
+  const Q7_CHIPS = [
+    '出發日期', '價格', '航班', '飯店', '行程亮點', '包含項目', '不包含項目',
+    '團位狀態', '購物站', '自費項目', '保險', '簽證', '優惠方案',
+    '領隊安排', '相似產品比較', '客群適配度', '行程強度', '主要賣點'
+  ];
+
+  const Q9_OPTIONS = [
+    { id: 'A', title: '目的地與產品基本條件', desc: '國家、城市、區域、天數、出發地、線別、團型、產品系列、產品等級' },
+    { id: 'B', title: '出發日期與銷售狀態', desc: '出發日期、團位、可報名狀態、成團狀態、是否即將截止、是否保證出發' },
+    { id: 'C', title: '價格與包含內容', desc: '價格、優惠、包含項目、不包含項目、自費、加價、是否划算' },
+    { id: 'D', title: '航班與交通安排', desc: '航空、直飛或轉機、航班時間、包機、鐵道、郵輪、遊覽車、接送安排' },
+    { id: 'E', title: '行程內容與體驗亮點', desc: '景點、活動、美食、季節體驗、文化體驗、主題樂園、特殊體驗、行程主軸' },
+    { id: 'F', title: '住宿與餐食規格', desc: '飯店等級、住宿位置、連泊、溫泉飯店、餐食安排、特色餐、升等安排' },
+    { id: 'G', title: '服務規格與作業條件', desc: '領隊、導遊、保險、文件、簽證、特殊需求、作業流程、確認條件' },
+    { id: 'H', title: '限制、風險與注意事項', desc: '不可退改、購物站、自費、年齡限制、體力限制、孕婦限制、行動不便限制、履約風險' },
+    { id: 'I', title: '適合對象與使用情境', desc: '親子、樂齡、蜜月、朋友、企業、首訪、重遊、預算型、高端型、輕鬆型、深度型' },
+    { id: 'J', title: '相似產品差異', desc: '與其他相似團相比，差在哪裡、強在哪裡、弱在哪裡、為什麼價格或內容不同' },
+  ];
+
+  const Q10_OPTIONS = [
+    '產品主要賣點不清楚', '相似產品差異不清楚', '適合什麼客群不清楚',
+    '價格差異原因不清楚', '包含與不包含項目不清楚', '優惠或促銷條件不清楚',
+    '團位、可報名狀態不清楚', '成團或出團條件不清楚', '航班或交通安排不清楚',
+    '飯店或住宿規格不清楚', '餐食規格不清楚', '景點或行程重點不清楚',
+    '行程強度不清楚', '是否有購物或自費不清楚', '簽證、證件或特殊限制不清楚',
+    '履約或作業風險不清楚', '系統有資料，但不容易找到', '系統資料不足，需要問人',
+    '我很少遇到資訊不清楚的情況',
+  ];
+
+  /* ============================================================ */
+  /*  STATE                                                        */
+  /* ============================================================ */
+  const state = {
+    q1: [], q1Other: '',
+    q2: null, q2Other: '',
+    q3: null,
+    q4: null, q4Other: '',
+    q5: [], q5Other: '',
+    q6: '',
+    q7: ['', '', '', '', ''],
+    q8: '',
+    q9: [],     // ordered array of ids
+    q10: [], q10Other: '',
+  };
+
+  /* ============================================================ */
+  /*  RENDER                                                       */
+  /* ============================================================ */
+  function renderQ1() {
+    const wrap = document.getElementById('q1-choices');
+    const otherInput = document.getElementById('q1-other');
+    const all = [...PRODUCT_LINES, '其他'];
+    wrap.innerHTML = all.map((v) => `
+      <div class="choice" data-val="${v}">
+        <input type="checkbox" value="${v}" tabindex="-1">
+        <span class="choice-text">${v}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        const v = el.dataset.val;
+        const isSelected = state.q1.includes(v);
+        if (isSelected) {
+          state.q1 = state.q1.filter(x => x !== v);
+        } else {
+          if (state.q1.length >= 3) return;
+          state.q1.push(v);
+        }
+        const nowSelected = state.q1.includes(v);
+        el.classList.toggle('selected', nowSelected);
+        el.querySelector('input').checked = nowSelected;
+        otherInput.classList.toggle('hidden', !state.q1.includes('其他'));
+        updateQ1Counter();
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => { state.q1Other = e.target.value; });
+  }
+  function updateQ1Counter() {
+    const c = document.getElementById('q1-counter');
+    c.textContent = `已選 ${state.q1.length} / 3`;
+    c.classList.toggle('warn', state.q1.length >= 3);
+  }
+
+  function renderQ2() {
+    const wrap = document.getElementById('q2-choices');
+    const otherInput = document.getElementById('q2-other');
+    const all = [...PRODUCT_LINES, '其他'];
+    wrap.innerHTML = all.map(v => `
+      <div class="choice" data-val="${v}">
+        <input type="radio" name="q2" value="${v}" tabindex="-1">
+        <span class="choice-text">${v}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        wrap.querySelectorAll('.choice').forEach(x => {
+          x.classList.remove('selected');
+          x.querySelector('input').checked = false;
+        });
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+        state.q2 = el.dataset.val;
+        otherInput.classList.toggle('hidden', state.q2 !== '其他');
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => { state.q2Other = e.target.value; });
+  }
+
+  function renderQ3() {
+    const wrap = document.getElementById('q3-scale');
+    const labels = [
+      '1 分　偶爾接觸，只知道大致內容',
+      '2 分　可理解產品基本資訊',
+      '3 分　經常接觸，能分辨一般產品差異',
+      '4 分　熟悉產品設計、銷售或作業上的差異',
+      '5 分　能判斷產品定位、銷售價值、作業風險或資源限制',
+    ];
+    wrap.innerHTML = labels.map((label, i) => `
+      <div class="scale-item" data-val="${i+1}">
+        <span class="scale-num">${i+1}</span>
+        <span class="scale-label">${label.replace(/^\d+ 分　/, '')}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.scale-item').forEach(el => {
+      el.addEventListener('click', () => {
+        wrap.querySelectorAll('.scale-item').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        state.q3 = parseInt(el.dataset.val);
+        updateProgress();
+      });
+    });
+  }
+
+  function renderQ4() {
+    const wrap = document.getElementById('q4-choices');
+    const otherInput = document.getElementById('q4-other');
+    const all = [...ROLES, { v: '其他', label: '其他', desc: '' }];
+    wrap.innerHTML = all.map(r => `
+      <div class="choice" data-val="${r.v}">
+        <input type="radio" name="q4" value="${r.v}" tabindex="-1">
+        <span class="choice-text">${r.label}${r.desc ? `<span class="choice-desc">${r.desc}</span>` : ''}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        wrap.querySelectorAll('.choice').forEach(x => {
+          x.classList.remove('selected');
+          x.querySelector('input').checked = false;
+        });
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+        state.q4 = el.dataset.val;
+        otherInput.classList.toggle('hidden', state.q4 !== '其他');
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => { state.q4Other = e.target.value; });
+  }
+
+  function renderQ5() {
+    const wrap = document.getElementById('q5-choices');
+    const otherInput = document.getElementById('q5-other');
+    const all = [...Q5_OPTIONS, '其他'];
+    wrap.innerHTML = all.map(v => `
+      <div class="choice" data-val="${v}">
+        <input type="checkbox" value="${v}" tabindex="-1">
+        <span class="choice-text">${v}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        const v = el.dataset.val;
+        const isSelected = state.q5.includes(v);
+        if (isSelected) {
+          state.q5 = state.q5.filter(x => x !== v);
+        } else {
+          if (state.q5.length >= 3) return;
+          state.q5.push(v);
+        }
+        const nowSelected = state.q5.includes(v);
+        el.classList.toggle('selected', nowSelected);
+        el.querySelector('input').checked = nowSelected;
+        otherInput.classList.toggle('hidden', !state.q5.includes('其他'));
+        const c = document.getElementById('q5-counter');
+        c.textContent = `已選 ${state.q5.length} / 3`;
+        c.classList.toggle('warn', state.q5.length >= 3);
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => { state.q5Other = e.target.value; });
+  }
+
+  function renderQ6() {
+    document.getElementById('q6-text').addEventListener('input', e => {
+      state.q6 = e.target.value;
+      updateProgress();
+    });
+  }
+
+  function renderQ7() {
+    const rows = document.getElementById('q7-rows');
+    rows.innerHTML = [0,1,2,3,4].map(i => `
+      <div class="freetext-row">
+        <span class="freetext-num">${i+1}.</span>
+        <input type="text" class="text-input q7-input" data-idx="${i}" placeholder="${i === 0 ? '例如：出發日期' : ''}" maxlength="40">
+      </div>
+    `).join('');
+
+    // helper: 是否與其他欄位重複(忽略空白與大小寫)
+    function isDup(val, currentIdx) {
+      const norm = val.trim();
+      if (!norm) return false;
+      return state.q7.some((x, i) => i !== currentIdx && x.trim() === norm);
+    }
+
+    function refreshDupState() {
+      const inputs = document.querySelectorAll('.q7-input');
+      inputs.forEach((input, i) => {
+        const dup = isDup(state.q7[i], i);
+        input.classList.toggle('dup-warn', dup);
+      });
+      // chip 視覺:已用過的變灰
+      const used = new Set(state.q7.map(x => x.trim()).filter(Boolean));
+      document.querySelectorAll('#q7-chips .chip').forEach(btn => {
+        btn.classList.toggle('chip-used', used.has(btn.dataset.val));
+      });
+    }
+
+    rows.querySelectorAll('.q7-input').forEach(el => {
+      el.addEventListener('input', e => {
+        state.q7[parseInt(el.dataset.idx)] = e.target.value;
+        refreshDupState();
+        updateProgress();
+      });
+    });
+
+    const chips = document.getElementById('q7-chips');
+    chips.innerHTML = Q7_CHIPS.map(c => `<button type="button" class="chip" data-val="${c}">${c}</button>`).join('');
+    chips.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const v = btn.dataset.val;
+        // 防重複:這個值已經在某欄了,就不加
+        if (state.q7.some(x => x.trim() === v)) return;
+        // 找第一個空欄位塞入
+        const idx = state.q7.findIndex(x => !x.trim());
+        if (idx === -1) return;
+        state.q7[idx] = v;
+        const inputs = document.querySelectorAll('.q7-input');
+        inputs[idx].value = v;
+        refreshDupState();
+        updateProgress();
+      });
+    });
+  }
+
+  function renderQ8() {
+    document.getElementById('q8-text').addEventListener('input', e => {
+      state.q8 = e.target.value;
+      updateProgress();
+    });
+  }
+
+  function renderQ9() {
+    const pool = document.getElementById('q9-pool');
+    const ranked = document.getElementById('q9-ranked');
+
+    function repaint() {
+      // ranked area
+      if (state.q9.length === 0) {
+        ranked.innerHTML = `
+          <div class="rank-card" style="opacity:0.5; border-style:dashed;">
+            <div class="rank-content"><div class="rank-desc" style="margin-top:0;">尚未選擇任何項目</div></div>
+          </div>`;
+      } else {
+        ranked.innerHTML = state.q9.map((id, idx) => {
+          const item = Q9_OPTIONS.find(o => o.id === id);
+          return `
+            <div class="rank-card in-rank" data-id="${id}">
+              <div class="rank-badge">${idx+1}</div>
+              <div class="rank-content">
+                <div class="rank-title">${item.title}</div>
+                <div class="rank-desc">${item.desc}</div>
+              </div>
+              <div class="rank-actions">
+                <button class="rank-btn" data-act="up" data-id="${id}" ${idx === 0 ? 'disabled' : ''}>▲</button>
+                <button class="rank-btn" data-act="down" data-id="${id}" ${idx === state.q9.length - 1 ? 'disabled' : ''}>▼</button>
+                <button class="rank-btn" data-act="remove" data-id="${id}">✕</button>
+              </div>
+            </div>`;
+        }).join('');
+      }
+
+      // pool
+      const available = Q9_OPTIONS.filter(o => !state.q9.includes(o.id));
+      pool.innerHTML = available.map(item => `
+        <div class="rank-card" data-id="${item.id}">
+          <div class="rank-content">
+            <div class="rank-title">${item.title}</div>
+            <div class="rank-desc">${item.desc}</div>
+          </div>
+          <div class="rank-actions">
+            <button class="rank-btn" data-act="add" data-id="${item.id}" ${state.q9.length >= 5 ? 'disabled' : ''}>＋</button>
+          </div>
+        </div>
+      `).join('');
+
+      // bind
+      document.querySelectorAll('#q9-ranked .rank-btn, #q9-pool .rank-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const act = btn.dataset.act;
+          const idx = state.q9.indexOf(id);
+          if (act === 'add' && state.q9.length < 5) {
+            state.q9.push(id);
+          } else if (act === 'remove') {
+            state.q9.splice(idx, 1);
+          } else if (act === 'up' && idx > 0) {
+            [state.q9[idx-1], state.q9[idx]] = [state.q9[idx], state.q9[idx-1]];
+          } else if (act === 'down' && idx < state.q9.length - 1) {
+            [state.q9[idx+1], state.q9[idx]] = [state.q9[idx], state.q9[idx+1]];
+          }
+          repaint();
+          updateProgress();
+        });
+      });
+    }
+    repaint();
+  }
+
+  function renderQ10() {
+    const wrap = document.getElementById('q10-choices');
+    const otherInput = document.getElementById('q10-other');
+    const all = [...Q10_OPTIONS, '其他'];
+    wrap.innerHTML = all.map(v => `
+      <div class="choice" data-val="${v}">
+        <input type="checkbox" value="${v}" tabindex="-1">
+        <span class="choice-text">${v}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        const v = el.dataset.val;
+        const isSelected = state.q10.includes(v);
+        if (isSelected) {
+          state.q10 = state.q10.filter(x => x !== v);
+        } else {
+          if (state.q10.length >= 5) return;
+          state.q10.push(v);
+        }
+        const nowSelected = state.q10.includes(v);
+        el.classList.toggle('selected', nowSelected);
+        el.querySelector('input').checked = nowSelected;
+        otherInput.classList.toggle('hidden', !state.q10.includes('其他'));
+        const c = document.getElementById('q10-counter');
+        c.textContent = `已選 ${state.q10.length} / 5`;
+        c.classList.toggle('warn', state.q10.length >= 5);
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => { state.q10Other = e.target.value; });
+  }
+
+  /* ============================================================ */
+  /*  PROGRESS                                                     */
+  /* ============================================================ */
+  function isQDone(n) {
+    switch (n) {
+      case 1: return state.q1.length > 0 && (!state.q1.includes('其他') || state.q1Other.trim());
+      case 2: return state.q2 && (state.q2 !== '其他' || state.q2Other.trim());
+      case 3: return state.q3 !== null;
+      case 4: return state.q4 && (state.q4 !== '其他' || state.q4Other.trim());
+      case 5: return state.q5.length > 0 && (!state.q5.includes('其他') || state.q5Other.trim());
+      case 6: return state.q6.trim().length >= 5;
+      case 7: return state.q7.some(x => x.trim());
+      case 8: return state.q8.trim().length >= 5;
+      case 9: return state.q9.length === 5;
+      case 10: return state.q10.length > 0 && (!state.q10.includes('其他') || state.q10Other.trim());
+    }
+  }
+  function updateProgress() {
+    let done = 0;
+    for (let i = 1; i <= 10; i++) if (isQDone(i)) done++;
+    document.getElementById('progressFill').style.width = `${done * 10}%`;
+    document.getElementById('progressText').textContent = `已完成 ${done} / 10 題`;
+  }
+
+  /* ============================================================ */
+  /*  VALIDATE + SUBMIT                                            */
+  /* ============================================================ */
+  function validate() {
+    let firstBad = null;
+    for (let i = 1; i <= 10; i++) {
+      const ok = isQDone(i);
+      const qEl = document.querySelector(`[data-q="${i}"]`);
+      const errEl = document.getElementById(`q${i}-error`);
+      qEl.classList.toggle('invalid', !ok);
+      if (errEl) errEl.classList.toggle('hidden', ok);
+      if (!ok && firstBad === null) firstBad = qEl;
+    }
+    if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return firstBad === null;
+  }
+
+  function buildPayload() {
+    return {
+      // honeypot
+      website: document.getElementById('website').value,
+      // meta
+      submittedAt: new Date().toISOString(),
+      durationMs: Date.now() - startTime,
+      userAgent: navigator.userAgent.slice(0, 200),
+      // answers
+      q1: state.q1.join('｜'),
+      q1Other: state.q1Other.trim(),
+      q2: state.q2 || '',
+      q2Other: state.q2Other.trim(),
+      q3: state.q3 || '',
+      q4: state.q4 || '',
+      q4Other: state.q4Other.trim(),
+      q5: state.q5.join('｜'),
+      q5Other: state.q5Other.trim(),
+      q6: state.q6.trim(),
+      q7_1: state.q7[0].trim(),
+      q7_2: state.q7[1].trim(),
+      q7_3: state.q7[2].trim(),
+      q7_4: state.q7[3].trim(),
+      q7_5: state.q7[4].trim(),
+      q8: state.q8.trim(),
+      q9_rank1: state.q9[0] || '',
+      q9_rank2: state.q9[1] || '',
+      q9_rank3: state.q9[2] || '',
+      q9_rank4: state.q9[3] || '',
+      q9_rank5: state.q9[4] || '',
+      q10: state.q10.join('｜'),
+      q10Other: state.q10Other.trim(),
+    };
+  }
+
+  async function submit() {
+    if (!validate()) return;
+    document.getElementById('form-screen').classList.add('hidden');
+    document.getElementById('loading-screen').classList.remove('hidden');
+
+    const payload = buildPayload();
+
+    try {
+      // text/plain avoids CORS preflight; GAS parses JSON.parse(e.postData.contents)
+      const res = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+        redirect: 'follow',
+      });
+      const data = await res.json();
+      if (data.ok) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ submittedAt: payload.submittedAt }));
+        document.getElementById('loading-screen').classList.add('hidden');
+        document.getElementById('success-screen').classList.remove('hidden');
+      } else {
+        throw new Error(data.error || 'unknown');
+      }
+    } catch (err) {
+      console.error(err);
+      document.getElementById('loading-screen').classList.add('hidden');
+      document.getElementById('error-screen').classList.remove('hidden');
+      document.getElementById('error-detail').textContent = '資料未能送達：' + (err.message || '網路錯誤');
+    }
+  }
+
+  /* ============================================================ */
+  /*  INIT                                                         */
+  /* ============================================================ */
+  let startTime = Date.now();
+
+  function checkDup() {
+    const prev = localStorage.getItem(STORAGE_KEY);
+    if (prev) {
+      document.getElementById('form-screen').classList.add('hidden');
+      document.getElementById('dup-screen').classList.remove('hidden');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderQ1(); renderQ2(); renderQ3(); renderQ4(); renderQ5();
+    renderQ6(); renderQ7(); renderQ8(); renderQ9(); renderQ10();
+    checkDup();
+    document.getElementById('submitBtn').addEventListener('click', submit);
+    document.getElementById('retryBtn').addEventListener('click', () => {
+      document.getElementById('error-screen').classList.add('hidden');
+      document.getElementById('form-screen').classList.remove('hidden');
+    });
+    document.getElementById('forceFillBtn').addEventListener('click', () => {
+      localStorage.removeItem(STORAGE_KEY);
+      document.getElementById('dup-screen').classList.add('hidden');
+      document.getElementById('form-screen').classList.remove('hidden');
+      startTime = Date.now();
+    });
+  });
+</script>
+
+</body>
+</html>
