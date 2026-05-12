@@ -521,7 +521,7 @@
       <h1>產品判斷情境<span class="accent">調研</span></h1>
       <p class="lede">這份調研將協助我們找出「判斷產品時，最該優先整理出來的資訊類型」。請依照你的實際工作經驗作答，預計耗時 8-12 分鐘。</p>
       <div class="meta">
-        <span class="meta-item">10 題</span>
+        <span class="meta-item">11 題</span>
         <span class="meta-item">無敏感資訊</span>
         <span class="meta-item">作答結果僅供內部產品優化使用</span>
       </div>
@@ -529,12 +529,12 @@
 
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-text" id="progressText">已完成 0 / 10 題</div>
+      <div class="progress-text" id="progressText">已完成 0 / 11 題</div>
     </div>
 
     <!-- ============ Q1 ============ -->
     <div class="question" data-q="1">
-      <div class="q-number">問題 01 / 10</div>
+      <div class="q-number">問題 01 / 11</div>
       <h2 class="q-title">你目前最熟悉哪些產品線？<span class="required">*</span></h2>
       <p class="q-hint">複選，最多 3 項</p>
       <span class="q-limit">最多 3 項</span>
@@ -546,9 +546,9 @@
 
     <!-- ============ Q2 ============ -->
     <div class="question" data-q="2">
-      <div class="q-number">問題 02 / 10</div>
-      <h2 class="q-title">如果只能選一個，你最熟悉哪一條產品線？<span class="required">*</span></h2>
-      <p class="q-hint">單選</p>
+      <div class="q-number">問題 02 / 11</div>
+      <h2 class="q-title">在你剛剛選的產品線中，如果只能選一個作為本次回答基準，你會選哪一條？<span class="required">*</span></h2>
+      <p class="q-hint">單選。選項會依你在 Q1 的選擇自動帶出。</p>
       <div class="choices two-col" id="q2-choices"></div>
       <input type="text" class="other-input hidden" id="q2-other" placeholder="請填寫其他產品線">
       <div class="error-msg hidden" id="q2-error">請選擇一項</div>
@@ -556,7 +556,7 @@
 
     <!-- ============ Q3 ============ -->
     <div class="question" data-q="3">
-      <div class="q-number">問題 03 / 10</div>
+      <div class="q-number">問題 03 / 11</div>
       <h2 class="q-title">你對這條產品線的熟悉程度？<span class="required">*</span></h2>
       <div class="scale" id="q3-scale"></div>
       <div class="error-msg hidden" id="q3-error">請選擇一個分數</div>
@@ -564,7 +564,7 @@
 
     <!-- ============ Q4 ============ -->
     <div class="question" data-q="4">
-      <div class="q-number">問題 04 / 10</div>
+      <div class="q-number">問題 04 / 11</div>
       <h2 class="q-title">你的主要工作角色是？<span class="required">*</span></h2>
       <div class="choices" id="q4-choices"></div>
       <input type="text" class="other-input hidden" id="q4-other" placeholder="請填寫其他角色">
@@ -573,7 +573,7 @@
 
     <!-- ============ Q5 ============ -->
     <div class="question" data-q="5">
-      <div class="q-number">問題 05 / 10</div>
+      <div class="q-number">問題 05 / 11</div>
       <h2 class="q-title">在你的工作中，哪些情境最常需要你快速理解或判斷一個產品？<span class="required">*</span></h2>
       <p class="q-hint">複選，最多 3 項</p>
       <span class="q-limit">最多 3 項</span>
@@ -585,21 +585,30 @@
 
     <!-- ============ Q6 ============ -->
     <div class="question" data-q="6">
-      <div class="q-number">問題 06 / 10</div>
-      <h2 class="q-title">請回想最近一次你需要判斷產品的情境，當時你主要在判斷什麼？<span class="required">*</span></h2>
-      <p class="q-hint">請依照實際工作經驗回答，不需要填寫客戶姓名、訂單資料或敏感資訊。例如：「我要判斷這個日本團適不適合推薦給親子客」「我要比較兩個歐洲團為什麼價格差很多」</p>
-      <textarea class="textarea" id="q6-text" placeholder="我當時主要在判斷：" maxlength="500"></textarea>
-      <div class="error-msg hidden" id="q6-error">請填寫至少 5 個字</div>
+      <div class="q-number">問題 06 / 11</div>
+      <h2 class="q-title">請從上一題選擇的情境中，挑一個最近實際發生過的例子，並描述當時你在判斷什麼。<span class="required">*</span></h2>
+      <p class="q-hint">先選一個情境，再回想最近一次例子。不需要填寫客戶姓名、訂單資料或敏感資訊。</p>
+
+      <div class="rank-section-title">先選一個情境</div>
+      <div class="choices" id="q6-scenario-choices">
+        <div class="choice" style="opacity:0.5; cursor:default;">
+          <span class="choice-text" style="color:var(--ink-soft); font-size:13px;">請先完成 Q5 後再選擇情境</span>
+        </div>
+      </div>
+
+      <div class="rank-section-title">當時你主要在判斷什麼？</div>
+      <textarea class="textarea" id="q6-text" placeholder="例如：判斷這個日本團適不適合推薦給親子客；比較兩個歐洲團為什麼價格差很多。" maxlength="500"></textarea>
+      <div class="error-msg hidden" id="q6-error">請先選一個情境，再填寫至少 5 個字</div>
     </div>
 
     <!-- ============ Q7 ============ -->
     <div class="question" data-q="7">
-      <div class="q-number">問題 07 / 10</div>
+      <div class="q-number">問題 07 / 11</div>
       <h2 class="q-title">在這個情境下，你通常會先看哪些資訊？<span class="required">*</span></h2>
-      <p class="q-hint">請用你平常會說的方式填寫，最多 5 項。下方的常見資訊可點擊快速代入。</p>
+      <p class="q-hint">請優先用你平常會說的方式填寫，最多 5 項。<strong style="color:var(--ink);">建議先用自己的話填，看不到適合的再參考下方常見資訊。</strong></p>
       <div class="freetext-rows" id="q7-rows"></div>
       <div class="chip-zone">
-        <div class="chip-zone-title">常見資訊（點擊填入空欄位）</div>
+        <div class="chip-zone-title">常見資訊（想不到時可參考，點擊填入空欄位）</div>
         <div class="chips" id="q7-chips"></div>
       </div>
       <div class="error-msg hidden" id="q7-error">請至少填寫 1 項</div>
@@ -607,18 +616,18 @@
 
     <!-- ============ Q8 ============ -->
     <div class="question" data-q="8">
-      <div class="q-number">問題 08 / 10</div>
-      <h2 class="q-title">為什麼你會先看這些資訊？<span class="required">*</span></h2>
-      <p class="q-hint">這題是關鍵題，幫助我們判斷某個資訊是因為「銷售」、「履約」、「比較」、「風險」、「客群適配」還是「產品設計」而重要。</p>
-      <textarea class="textarea" id="q8-text" placeholder="原因是：" maxlength="500"></textarea>
+      <div class="q-number">問題 08 / 11</div>
+      <h2 class="q-title">這些資訊會怎麼影響你的判斷？<span class="required">*</span></h2>
+      <p class="q-hint">例如：會影響我能不能推薦、能不能確認出團、能不能說服客人、能不能判斷風險、能不能比較產品差異。</p>
+      <textarea class="textarea" id="q8-text" placeholder="這些資訊會影響我..." maxlength="500"></textarea>
       <div class="error-msg hidden" id="q8-error">請填寫至少 5 個字</div>
     </div>
 
     <!-- ============ Q9 ============ -->
     <div class="question" data-q="9">
-      <div class="q-number">問題 09 / 10</div>
-      <h2 class="q-title">如果系統要幫你優先整理產品資訊，以下哪 5 類最值得優先被整理出來？<span class="required">*</span></h2>
-      <p class="q-hint">點 ＋ 加入排序、用 ▲▼ 調整順序。請依照實際判斷需求排出第 1 到第 5 名。</p>
+      <div class="q-number">問題 09 / 11</div>
+      <h2 class="q-title">依照你在 Q6 描述的判斷情境，哪 5 類資訊最能幫助你做出判斷？<span class="required">*</span></h2>
+      <p class="q-hint"><strong style="color:var(--ink);">請以「我實際判斷時最需要哪些資訊」來排序，而不是「公司應該整理什麼」。</strong>點 ＋ 加入排序、用 ▲▼ 調整順序，排出第 1 到第 5 名。</p>
 
       <div id="q9-ranked-section">
         <div class="rank-section-title">你的排序（第 1-5 名）</div>
@@ -636,7 +645,7 @@
 
     <!-- ============ Q10 ============ -->
     <div class="question" data-q="10">
-      <div class="q-number">問題 10 / 10</div>
+      <div class="q-number">問題 10 / 11</div>
       <h2 class="q-title">哪些產品資訊你最常覺得不清楚、需要再確認，或需要問其他人？<span class="required">*</span></h2>
       <p class="q-hint">複選，最多 5 項</p>
       <span class="q-limit">最多 5 項</span>
@@ -644,6 +653,16 @@
       <div class="choices" id="q10-choices"></div>
       <input type="text" class="other-input hidden" id="q10-other" placeholder="請填寫其他">
       <div class="error-msg hidden" id="q10-error">請至少選擇一項</div>
+    </div>
+
+    <!-- ============ Q11 ============ -->
+    <div class="question" data-q="11">
+      <div class="q-number">問題 11 / 11</div>
+      <h2 class="q-title">你最常需要再確認的「主要原因」是什麼？<span class="required">*</span></h2>
+      <p class="q-hint">單選。這題幫助我們分辨「資料有沒有」、「找不找得到」、「看不看得懂」是不同問題。</p>
+      <div class="choices" id="q11-choices"></div>
+      <input type="text" class="other-input hidden" id="q11-other" placeholder="請填寫其他原因">
+      <div class="error-msg hidden" id="q11-error">請選擇一項</div>
     </div>
 
     <!-- Honeypot -->
@@ -754,6 +773,16 @@
     '我很少遇到資訊不清楚的情況',
   ];
 
+  const Q10_REASONS = [
+    { v: '系統沒有這類資訊', label: '系統沒有這類資訊' },
+    { v: '系統有，但位置分散', label: '系統有，但位置分散' },
+    { v: '系統有，但內容不夠清楚', label: '系統有，但內容不夠清楚' },
+    { v: '資訊會變動，需要問人才準', label: '資訊會變動，需要問人才準' },
+    { v: '我不確定該問誰', label: '我不確定該問誰' },
+    { v: '這不是我平常負責判斷的範圍', label: '這不是我平常負責判斷的範圍' },
+    { v: '其他', label: '其他' },
+  ];
+
   /* ============================================================ */
   /*  STATE                                                        */
   /* ============================================================ */
@@ -763,11 +792,13 @@
     q3: null,
     q4: null, q4Other: '',
     q5: [], q5Other: '',
+    q6Scenario: null,  // 從 Q5 已選情境中挑一個作為 Q6 例子
     q6: '',
     q7: ['', '', '', '', ''],
     q8: '',
     q9: [],     // ordered array of ids
     q10: [], q10Other: '',
+    q10Reason: null, q10ReasonOther: '',
   };
 
   /* ============================================================ */
@@ -798,10 +829,21 @@
         el.querySelector('input').checked = nowSelected;
         otherInput.classList.toggle('hidden', !state.q1.includes('其他'));
         updateQ1Counter();
+        // Q1 變動時,Q2 選項要跟著變
+        renderQ2();
+        // 若 Q2 之前選的已經不在 Q1 範圍中,清掉
+        if (state.q2 && state.q2 !== '其他' && !state.q1.includes(state.q2)) {
+          state.q2 = null;
+          state.q2Other = '';
+          document.getElementById('q2-other').classList.add('hidden');
+        }
         updateProgress();
       });
     });
-    otherInput.addEventListener('input', e => { state.q1Other = e.target.value; });
+    otherInput.addEventListener('input', e => {
+      state.q1Other = e.target.value;
+      updateProgress();
+    });
   }
   function updateQ1Counter() {
     const c = document.getElementById('q1-counter');
@@ -812,10 +854,22 @@
   function renderQ2() {
     const wrap = document.getElementById('q2-choices');
     const otherInput = document.getElementById('q2-other');
-    const all = [...PRODUCT_LINES, '其他'];
+
+    // 依 Q1 已選的產品線(不含「其他」原始值,但保留讓使用者另選「其他」)
+    const fromQ1 = state.q1.filter(x => x !== '其他');
+    const all = [...fromQ1, '其他'];
+
+    if (fromQ1.length === 0) {
+      wrap.innerHTML = `
+        <div class="choice" style="opacity:0.5; cursor:default; grid-column: 1 / -1;">
+          <span class="choice-text" style="color:var(--ink-soft); font-size:13px;">請先在 Q1 選擇至少一條產品線</span>
+        </div>`;
+      return;
+    }
+
     wrap.innerHTML = all.map(v => `
-      <div class="choice" data-val="${v}">
-        <input type="radio" name="q2" value="${v}" tabindex="-1">
+      <div class="choice ${state.q2 === v ? 'selected' : ''}" data-val="${v}">
+        <input type="radio" name="q2" value="${v}" tabindex="-1" ${state.q2 === v ? 'checked' : ''}>
         <span class="choice-text">${v}</span>
       </div>
     `).join('');
@@ -823,7 +877,8 @@
       el.addEventListener('click', () => {
         wrap.querySelectorAll('.choice').forEach(x => {
           x.classList.remove('selected');
-          x.querySelector('input').checked = false;
+          const inp = x.querySelector('input');
+          if (inp) inp.checked = false;
         });
         el.classList.add('selected');
         el.querySelector('input').checked = true;
@@ -832,7 +887,10 @@
         updateProgress();
       });
     });
-    otherInput.addEventListener('input', e => { state.q2Other = e.target.value; });
+    otherInput.addEventListener('input', e => {
+      state.q2Other = e.target.value;
+      updateProgress();
+    });
   }
 
   function renderQ3() {
@@ -913,13 +971,54 @@
         const c = document.getElementById('q5-counter');
         c.textContent = `已選 ${state.q5.length} / 3`;
         c.classList.toggle('warn', state.q5.length >= 3);
+        // Q5 變動時 Q6 情境選擇要跟著變
+        renderQ6Scenario();
+        // 若 Q6 已選情境不在 Q5 範圍,清掉
+        if (state.q6Scenario && state.q6Scenario !== '其他' && !state.q5.includes(state.q6Scenario)) {
+          state.q6Scenario = null;
+        }
         updateProgress();
       });
     });
-    otherInput.addEventListener('input', e => { state.q5Other = e.target.value; });
+    otherInput.addEventListener('input', e => {
+      state.q5Other = e.target.value;
+      updateProgress();
+    });
+  }
+
+  function renderQ6Scenario() {
+    const wrap = document.getElementById('q6-scenario-choices');
+    const fromQ5 = state.q5.filter(x => x !== '其他');
+    if (fromQ5.length === 0) {
+      wrap.innerHTML = `
+        <div class="choice" style="opacity:0.5; cursor:default;">
+          <span class="choice-text" style="color:var(--ink-soft); font-size:13px;">請先完成 Q5 後再選擇情境</span>
+        </div>`;
+      return;
+    }
+    wrap.innerHTML = fromQ5.map(v => `
+      <div class="choice ${state.q6Scenario === v ? 'selected' : ''}" data-val="${v}">
+        <input type="radio" name="q6sc" value="${v}" tabindex="-1" ${state.q6Scenario === v ? 'checked' : ''}>
+        <span class="choice-text">${v}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        wrap.querySelectorAll('.choice').forEach(x => {
+          x.classList.remove('selected');
+          const inp = x.querySelector('input');
+          if (inp) inp.checked = false;
+        });
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+        state.q6Scenario = el.dataset.val;
+        updateProgress();
+      });
+    });
   }
 
   function renderQ6() {
+    renderQ6Scenario();
     document.getElementById('q6-text').addEventListener('input', e => {
       state.q6 = e.target.value;
       updateProgress();
@@ -1086,7 +1185,38 @@
         updateProgress();
       });
     });
-    otherInput.addEventListener('input', e => { state.q10Other = e.target.value; });
+    otherInput.addEventListener('input', e => {
+      state.q10Other = e.target.value;
+      updateProgress();
+    });
+  }
+
+  function renderQ11() {
+    const wrap = document.getElementById('q11-choices');
+    const otherInput = document.getElementById('q11-other');
+    wrap.innerHTML = Q10_REASONS.map(r => `
+      <div class="choice" data-val="${r.v}">
+        <input type="radio" name="q11" value="${r.v}" tabindex="-1">
+        <span class="choice-text">${r.label}</span>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', () => {
+        wrap.querySelectorAll('.choice').forEach(x => {
+          x.classList.remove('selected');
+          x.querySelector('input').checked = false;
+        });
+        el.classList.add('selected');
+        el.querySelector('input').checked = true;
+        state.q10Reason = el.dataset.val;
+        otherInput.classList.toggle('hidden', state.q10Reason !== '其他');
+        updateProgress();
+      });
+    });
+    otherInput.addEventListener('input', e => {
+      state.q10ReasonOther = e.target.value;
+      updateProgress();
+    });
   }
 
   /* ============================================================ */
@@ -1099,18 +1229,19 @@
       case 3: return state.q3 !== null;
       case 4: return state.q4 && (state.q4 !== '其他' || state.q4Other.trim());
       case 5: return state.q5.length > 0 && (!state.q5.includes('其他') || state.q5Other.trim());
-      case 6: return state.q6.trim().length >= 5;
+      case 6: return !!state.q6Scenario && state.q6.trim().length >= 5;
       case 7: return state.q7.some(x => x.trim());
       case 8: return state.q8.trim().length >= 5;
       case 9: return state.q9.length === 5;
       case 10: return state.q10.length > 0 && (!state.q10.includes('其他') || state.q10Other.trim());
+      case 11: return !!state.q10Reason && (state.q10Reason !== '其他' || state.q10ReasonOther.trim());
     }
   }
   function updateProgress() {
     let done = 0;
-    for (let i = 1; i <= 10; i++) if (isQDone(i)) done++;
-    document.getElementById('progressFill').style.width = `${done * 10}%`;
-    document.getElementById('progressText').textContent = `已完成 ${done} / 10 題`;
+    for (let i = 1; i <= 11; i++) if (isQDone(i)) done++;
+    document.getElementById('progressFill').style.width = `${(done / 11) * 100}%`;
+    document.getElementById('progressText').textContent = `已完成 ${done} / 11 題`;
   }
 
   /* ============================================================ */
@@ -1118,7 +1249,7 @@
   /* ============================================================ */
   function validate() {
     let firstBad = null;
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 11; i++) {
       const ok = isQDone(i);
       const qEl = document.querySelector(`[data-q="${i}"]`);
       const errEl = document.getElementById(`q${i}-error`);
@@ -1148,6 +1279,7 @@
       q4Other: state.q4Other.trim(),
       q5: state.q5.join('｜'),
       q5Other: state.q5Other.trim(),
+      q6Scenario: state.q6Scenario || '',
       q6: state.q6.trim(),
       q7_1: state.q7[0].trim(),
       q7_2: state.q7[1].trim(),
@@ -1162,6 +1294,8 @@
       q9_rank5: state.q9[4] || '',
       q10: state.q10.join('｜'),
       q10Other: state.q10Other.trim(),
+      q10Reason: state.q10Reason || '',
+      q10ReasonOther: state.q10ReasonOther.trim(),
     };
   }
 
@@ -1211,7 +1345,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     renderQ1(); renderQ2(); renderQ3(); renderQ4(); renderQ5();
-    renderQ6(); renderQ7(); renderQ8(); renderQ9(); renderQ10();
+    renderQ6(); renderQ7(); renderQ8(); renderQ9(); renderQ10(); renderQ11();
     checkDup();
     document.getElementById('submitBtn').addEventListener('click', submit);
     document.getElementById('retryBtn').addEventListener('click', () => {
